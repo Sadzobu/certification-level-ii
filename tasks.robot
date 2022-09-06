@@ -37,7 +37,7 @@ Order robots from RobotSpareBin Industries Inc
         Save order receipt as PDF    ${order_values}[0]
         Save screenshot of a robot
         Add screenshot to PDF    ${order_values}[0]
-        Click Button    order-another
+        Proceed to another order
     END
     Create a ZIP archive of PDF receipts
     Clean unnecessary files
@@ -116,3 +116,6 @@ Clean unnecessary files
 
 Close the robot ordering website
     Close Browser
+
+Proceed to another order
+    Click Button    order-another
