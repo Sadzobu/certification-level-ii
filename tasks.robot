@@ -13,6 +13,7 @@ Library             RPA.Desktop
 Library             RPA.Archive
 Library             RPA.Dialogs
 Library             RPA.Robocorp.Vault
+Library             RPA.RobotLogListener
 Library             OperatingSystem
 Library             String
 
@@ -50,15 +51,16 @@ Greet the user
     Add text    My name is ${author}, I am an author of this robot.
     Add text input    name    placeholder=Enter your name here:
     ${result}=    Run dialog
-    Add text    Nice to meet you ${result.name}. Let us order some robots!
-    Show dialog
+    Add text    Nice to meet you ${result.name}. Let us order some robots
+    Add submit buttons    buttons=Ok!
+    Run dialog
 
 Get author name
     ${secret}=    Get Secret    credentials
     RETURN    ${secret}[author]
 
 Open the Robot ordering website
-    Open Available Browser    https://robotsparebinindustries.com/#/robot-order
+    Open Available Browser    https://robotsparebinindustries.com/#/robot-order    headless=True
 
 Close pop-up banner
     Click Button    OK
@@ -80,10 +82,12 @@ Fill the form for one order
     Input Text    address    ${order_values}[4]
 
 Preview the robot
+    Mute Run on Failure    Click Button
     Click Button    preview
     Wait Until Element Is Visible    id:robot-preview-image
 
 Order the robot
+    Mute Run on Failure    Click Button
     Click Button    order
     Wait Until Element Is Visible    id:receipt
 
